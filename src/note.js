@@ -1,6 +1,6 @@
 class Note {
   constructor(data) {
-    this.id = data.id;
+    this.id = parseInt(data.id);
     this.title = data.title;
     this.content = data.content;
     Note.all.push(this);
@@ -16,7 +16,7 @@ class Note {
   }
 
   static findById(id) {
-    return this.all.find(note => note.id === id);
+    return this.all.find(note => note.id == id);
   }
 
    renderUpdateForm() {

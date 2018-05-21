@@ -9,7 +9,7 @@ class App {
 	}
 
   attachEventListeners() {
-  	document.querySelect('#notes-list').addEventListener('click', this.handleEditClick);
+  	document.querySelector('#notes-list').addEventListener('click', this.handleEditClick);
   	document.querySelector('#update').addEventListener('submit',this.handleFormSubmit);
   }
 
@@ -33,23 +33,18 @@ class App {
   	const title = e.target.querySelector('input').value;
   	const content = e.target.querySelector('textarea').value;
   	const bodyJSON= {title, content}
- 	this.adapter.updatedNote(note.id, bodyJSON).then(updatedNote => {
- 		const note = Note.findById(updatedNote.id);
- 		note.update(updatedNote);
- 		this.addNotes();
+ 	  this.adapter.updateNote(note.id, bodyJSON).then(updatedNote => {
+   		console.log(updatedNote);
+      const note = Note.findById(updatedNote.id);
+   		note.update(updatedNote);
+   		this.addNotes();
  	});
-  }
   }
 
   handleEditClick(e){
   	const id = parseInt(e.target.dataset.id);
   	const note = Note.findById(id);
-  	document.querySelector('#update').innerHTML = note.renderUpdateForm();
-  	this.adapter.updateNote(note.id, bodyJSON).then(updatedNote =>{
-  		const note = Note.findById(updatedNote.id);
-  		note.update(updatedNote);
-  		this.addNotes();
-  	})
+    document.querySelector('#update').innerHTML = note.renderUpdateForm();
   }
 }
 
